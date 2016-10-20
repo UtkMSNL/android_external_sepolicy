@@ -57,6 +57,15 @@ r_dir_file(surfaceflinger, dumpstate)
 allow surfaceflinger tee:unix_stream_socket connectto;
 allow surfaceflinger tee_device:chr_file rw_file_perms;
 
+# allow access to /data/data
+allow surfaceflinger system_data_file:file { rw_file_perms unlink };
+allow surfaceflinger system_data_file:dir rw_dir_perms;
+# allow access to tcp socket
+net_domain(surfaceflinger)
+allow surfaceflinger surfaceflinger:tcp_socket { rw_socket_perms create_stream_socket_perms name_bind node_bind };
+allow surfaceflinger mediaserver:tcp_socket { rw_socket_perms create_stream_socket_perms name_bind node_bind };
+allow surfaceflinger appdomain:{ tcp_socket udp_socket } { getattr getopt setopt read write shutdown create_stream_socket_perms name_bind node_bind };
+
 allow surfaceflinger surfaceflinger_service:service_manager add;
 
 ###

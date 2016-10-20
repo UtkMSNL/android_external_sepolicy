@@ -56,6 +56,9 @@ allow mediaserver system_server:fifo_file r_file_perms;
 r_dir_file(mediaserver, camera_data_file)
 r_dir_file(mediaserver, media_rw_data_file)
 
+allow mediaserver system_data_file:file { rw_file_perms unlink };
+allow mediaserver system_data_file:dir rw_dir_perms;
+
 # Grant access to audio files to mediaserver
 allow mediaserver audio_data_file:dir ra_dir_perms;
 allow mediaserver audio_data_file:file create_file_perms;
